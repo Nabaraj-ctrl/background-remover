@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background Remover</title>
+  <style>
+    /* Base styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Dark mode styles */
+    .dark-mode {
+      background-color: #2a2a2a;
+      color: white;
+    }
+
+    /* Light mode styles */
+    .light-mode {
+      background-color: #f5f5f5;
+      color: black;
+    }
+
+    /* Header section */
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      align-items: center;
+      background: #333;
+      color: white;
+      border-bottom: 2px solid #555;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    #toggleMode, #toggleNight {
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 18px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    #toggleMode:hover, #toggleNight:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 40px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Image Section */
+    .image-section {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .image-section img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #f5a623;
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #dcdcdc;
+    }
+
+    input[type="file"] {
+      margin: 20px 0;
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 5px;
+      border: none;
+      background-color: #444;
+      color: white;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 18px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Output Section */
+    .output img {
+      max-width: 100%;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: 2px solid #fff;
+    }
+
+    .output h3 {
+      margin-top: 20px;
+      color: #fff;
+      font-size: 24px;
+    }
+
+    /* Countdown */
+    .countdown {
+      font-size: 20px;
+      color: #f5a623;
+      margin-top: 20px;
+    }
+
+    /* Hide output initially */
+    .output {
+      display: none;
+    }
+
+    /* About Us Section */
+    .about-us {
+      background-color: #333;
+      color: white;
+      padding: 40px;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .about-us h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .about-us p {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #dcdcdc;
+    }
+  .background-remover h2 {
+    font-size: 40px;
+    margin-bottom: 30px;
+    color: #dcdcdc;
+  }
+    .backgroumd-remover p {
+      font-size:30px;
+      margin-bottom: 30px;
+      color: #dcdcdc;
+      
+    }
+
+    .about-us img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    .about-us a {
+      font-size: 20px;
+      color: #007BFF;
+      text-decoration: none;
+      margin-top: 20px;
+      display: inline-block;
+    }
+
+    .about-us a:hover {
+      text-decoration: underline;
+    }
+
+    /* Contact Us Section */
+    .contact-us {
+      background-color: #222;
+      padding: 40px;
+      margin-top: 50px;
+      text-align: center;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .contact-us h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .contact-us form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .contact-us input[type="text"],
+    .contact-us input[type="email"],
+    .contact-us input[type="tel"] {
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 5px;
+      border: none;
+      width: 80%;
+      max-width: 500px;
+      background-color: #444;
+      color: white;
+    }
+
+    .contact-us button {
+      padding: 15px;
+      font-size: 18px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 80%;
+      max-width: 500px;
+    }
+
+    .contact-us button:hover {
+      background-color: #218838;
+    }
+
+  </style>
+</head>
+<body class="dark-mode"> <!-- Default dark mode -->
+
+  <header>
+    <h1>Background Remover</h1>
+    <div>
+      <button id="toggleMode">Light Mode</button>
+      <button id="toggleNight">Night Mode</button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <h2>Upload an Image and Remove the Background Instantly!</h2>
+    <p>Select your image and let us do the magic!</p>
+    
+    <!-- File Input for Image -->
+    <input type="file" id="fileInput" accept="image/*">
+    
+    <!-- Remove Background Button -->
+    <button id="removeBgBtn">Remove Background</button>
+
+    <!-- Countdown Timer -->
+    <div id="countdown" class="countdown">Processing in: 10</div>
+
+    <!-- Output Images -->
+    <div class="output">
+      <h3>Original Image:</h3>
+      <img id="originalImage" alt="Original Image" />
+      <h3>Background Removed:</h3>
+      <img id="resultImage" alt="Processed Image" />
+      <a id="downloadBtn" href="#" download="processed-image.png">
+        <button>Download Image</button>
+      </a>
+     </div>
+  </div>
+  <h1>watch video for remove background color</h1>
+  <iframe width="100%" height="315" src="https://www.youtube.com/embed/jvCiTE3PlM0?si=Ujw9XSi-dhSdtzBg" title="bg remover" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <div class="background remover">
+    <h2>Background remover</h2>
+    <p>
+      <h1>Background Remover: A Comprehensive Guide</h1>
+In the world of graphic design, photography, and digital marketing, having the right image is crucial to creating compelling content. One of the most important features of image editing is the ability to remove or change the background of a photo. A background remover is a tool or technique that allows users to erase the background from an image, leaving behind only the desired subject. This capability has become essential for many applications, including product photography, social media marketing, e-commerce listings, and more. In this article, we'll dive deep into the concept of background removers, how they work, and their significance in various industries.
+      <h1>What is a Background Remover?</h1>
+A background remover is a digital tool or software that enables the isolation of the subject in an image by eliminating or replacing its background. The main goal of background removal is to create an image where the subject stands out clearly, with a transparent or solid-colored background, making it versatile for a variety of uses.
+The need for background removal has increased due to the rise of e-commerce platforms, advertising campaigns, and social media where high-quality visuals are crucial for engagement. For example, online stores often require clean, professional-looking product images where the background doesn't distract from the item being sold. Similarly, content creators use background removers to create dynamic thumbnails or images that are visually appealing and focused on the subject.
+     <h2>How Does a Background Remover Work?</h2>
+      <h4>There are two main approaches to background removal: manual and automated.</h4>
+      <h2>1. Manual Background Removal:</h2>
+Manual background removal involves using editing software to meticulously erase the background, leaving only the main subject of the image. This method requires a high level of skill and precision, especially when dealing with complex images where the subject has intricate edges or hair. Popular software like Adobe Photoshop provides several tools, such as the Pen Tool, Lasso Tool, or Quick Selection Tool, to allow users to carefully select and delete the background.
+Manual removal can be time-consuming but provides greater control and precision over the final result. It’s ideal when the background is complex or when you need to refine the edges of the subject to ensure a clean, professional look.
+      <h2>2. Automated Background Removal:</h2>
+With advancements in AI and machine learning, automated background removers have gained popularity. These tools analyze the image and automatically detect the subject, then remove or replace the background. The process is faster and requires less effort from the user, making it accessible even to those without extensive photo-editing experience.
+Services like remove.bg and Clipping Magic are prime examples of automated background removers. They work by using deep learning algorithms that identify the edges of the subject, distinguish it from the background, and eliminate unwanted pixels. These tools are especially useful for users looking for quick results without the need for manual intervention.
+Automated tools have their limitations, however. While they can handle most common images with ease, they may struggle with complex backgrounds, fine details (like hair or fur), or images where the subject blends in with the background. In such cases, manual touch-ups may still be necessary.
+      <h1>Why Use a Background Remover?</h1>
+The ability to remove backgrounds from images is a powerful tool, and there are several reasons why it is widely used across various industries and by individual users alike.
+      <h3>1. E-Commerce and Product Photography:</h3>
+For e-commerce businesses, presenting products in the best possible light is essential. A clear, high-quality image of a product with no distracting background can significantly improve the shopper's experience. Background removal allows e-commerce sites to display products on a clean, uniform background, making the items the focal point. This also helps in maintaining consistency across all product listings.
+      <h3>2. Social Media Content Creation:</h3>
+Social media platforms like Instagram, Facebook, and Twitter thrive on visually appealing content. Content creators often use background removers to create unique visuals that stand out. For example, influencers, bloggers, and businesses may remove the background of their photos to place their subject in a more relevant or engaging context, such as a custom-designed graphic or a branded background.
+      <h3>3. Marketing and Advertising:</h3>
+In advertising and marketing, images are often used in a variety of formats, such as posters, flyers, banners, and ads. Having a subject with no background or a transparent background
+
+
+    </p>
+    
+  </div>
+  <!-- About Us Section -->
+  <div class="about-us">
+    <h2>About Us</h2>
+    <img src="nkc.jpg" alt="Nabaraj KC">
+    <p>Space Company is an innovative IT company specializing in creating cutting-edge websites and applications for clients around the world. Led by visionary CEO, Nabaraj KC, Space Company is dedicated to providing top-notch technology solutions that help businesses grow and evolve in the digital age. Whether it's designing sleek websites, developing user-friendly apps, or providing digital marketing solutions, Space Company is here to transform your ideas into reality.</p>
+    <p>CEO: Nabaraj KC</p>
+    
+    <a href="https://nkc.netlify.app" target="_blank">Visit our AI (Space) Website</a>
+  </div>
+
+  <!-- Contact Us Section -->
+  <div class="contact-us">
+    <h2>Contact Us</h2>
+    <form action="#" method="post">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="tel" name="contact" placeholder="Your Contact Number" required>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- JavaScript for Dark/Light Mode Toggle, Countdown, and Background Removal -->
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const removeBgBtn = document.getElementById('removeBgBtn');
+    const originalImage = document.getElementById('originalImage');
+    const resultImage = document.getElementById('resultImage');
+    const countdownDisplay = document.getElementById('countdown');
+    const outputDiv = document.querySelector('.output');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const toggleModeBtn = document.getElementById('toggleMode');
+    const toggleNightBtn = document.getElementById('toggleNight');
+    const body = document.body;
+
+    // API key for Remove.bg
+    const API_KEY = 'EWLasWpSchsvodZUPaVXb3th';
+    const API_URL = 'https://api.remove.bg/v1.0/removebg';
+
+    let countdownTimer;
+    let countdownTime = 10;
+
+    // Toggle Dark/Night Mode
+    toggleNightBtn.addEventListener('click', () => {
+      if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        toggleModeBtn.textContent = 'Switch to Dark Mode';
+        toggleNightBtn.textContent = 'Switch to Night Mode';
+      } else {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        toggleModeBtn.textContent = 'Switch to Light Mode';
+        toggleNightBtn.textContent = 'Switch to Day Mode';
+      }
+    });
+
+    // Countdown Function
+    function startCountdown() {
+      countdownTimer = setInterval(() => {
+        countdownDisplay.textContent = `Processing in: ${countdownTime}`;
+        countdownTime--;
+        if (countdownTime < 0) {
+          clearInterval(countdownTimer);
+          countdownDisplay.textContent = 'Processing Completed!';
+          outputDiv.style.display = 'block'; // Show output
+          downloadBtn.style.display = 'block'; // Show download button
+        }
+      }, 1000);
+    }
+
+    // Handle Image Upload and Background Removal
+    removeBgBtn.addEventListener('click', async () => {
+      if (!fileInput.files[0]) {
+        alert('Please upload an image first.');
+        return;
+      }
+
+      // Start the countdown
+      countdownTime = 10; // Reset countdown time
+      startCountdown();
+
+      const formData = new FormData();
+      formData.append('image_file', fileInput.files[0]);
+      formData.append('size', 'auto');
+
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'X-Api-Key': API_KEY,
+          },
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to remove background. Please try again.');
+        }
+
+        const blob = await response.blob();
+        const resultURL = URL.createObjectURL(blob);
+
+        // Display original and result images
+        originalImage.src = URL.createObjectURL(fileInput.files[0]);
+        resultImage.src = resultURL;
+      } catch (error) {
+        console.error('Error:', error);
+        alert(error.message);
+      }
+    });
+  </script>
+
+</body>
+</html>
